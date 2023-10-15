@@ -10,11 +10,11 @@ namespace BarnesGApproximation {
         }
 
         public static MultiPrecision<Pow2.N32> LogValue(MultiPrecision<Pow2.N32> x) {
-            MultiPrecision<Plus1<Pow2.N32>> logg = BarnesG<Plus1<Pow2.N32>>.LogValue(x.Convert<Plus1<Pow2.N32>>(), n: 128);
+            MultiPrecision<Plus4<Pow2.N32>> logg = BarnesG<Plus4<Pow2.N32>>.LogValue(x.Convert<Plus4<Pow2.N32>>(), n: 160);
 
-            MultiPrecision<Plus1<Pow2.N32>> logg_rounded = MultiPrecision<Plus1<Pow2.N32>>.Ldexp(
-                MultiPrecision<Plus1<Pow2.N32>>.Truncate(
-                    MultiPrecision<Plus1<Pow2.N32>>.Ldexp(logg, MultiPrecision<Pow2.N32>.Bits)
+            MultiPrecision<Plus4<Pow2.N32>> logg_rounded = MultiPrecision<Plus4<Pow2.N32>>.Ldexp(
+                MultiPrecision<Plus4<Pow2.N32>>.Truncate(
+                    MultiPrecision<Plus4<Pow2.N32>>.Ldexp(logg, MultiPrecision<Pow2.N32>.Bits)
                 ), -MultiPrecision<Pow2.N32>.Bits
             );
 

@@ -7,6 +7,10 @@ namespace BarnesGApproximation {
 
             Console.WriteLine(t);
 
+            MultiPrecision<Pow2.N32> w = BarnesGN32.LogValue(1000.25);
+
+            Console.WriteLine(w);
+
             MultiPrecision<Pow2.N32> v1 = BarnesGN32.Value(1);
             MultiPrecision<Pow2.N32> v2 = BarnesGN32.Value(2);
 
@@ -19,9 +23,15 @@ namespace BarnesGApproximation {
             Console.WriteLine(u1);
             Console.WriteLine(u2);
 
-            MultiPrecision<Pow2.N32> w = BarnesGN32.LogValue(1000.25);
+            MultiPrecision<Pow2.N32> u3 = BarnesGN32.LogValue(1 + 1d / 65536);
+            MultiPrecision<Pow2.N32> u4 = BarnesGN32.LogValue(2 + 1d / 65536);
 
-            Console.WriteLine(w);
+            Console.WriteLine(u3);
+            Console.WriteLine(u4);
+
+            Console.WriteLine(u1);
+            Console.WriteLine(u2);
+
 
             Console.WriteLine("END");
             Console.ReadLine();
