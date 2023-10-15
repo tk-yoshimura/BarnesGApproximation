@@ -1,7 +1,7 @@
 ﻿using MultiPrecision;
 
 namespace BarnesGApproximation {
-    public static class BarnesG<N> where N: struct, IConstant {
+    public static class BarnesG<N> where N : struct, IConstant {
         private static readonly List<MultiPrecision<N>> sterling_term_coefs = new() {
             MultiPrecision<N>.NaN
         };
@@ -15,11 +15,38 @@ namespace BarnesGApproximation {
         private static MultiPrecision<N> LogPI2Half { get; } =
             MultiPrecision<N>.Log(2 * MultiPrecision<N>.PI) / 2;
 
+        public static MultiPrecision<N> Value(MultiPrecision<N> x, long n) {
+            return MultiPrecision<N>.Exp(LogValue(x, n));
+        }
+
+        public static MultiPrecision<N> LogValue(MultiPrecision<N> x, long n) {
+            if (x >= n) {
+                return SterlingApprox(x);
+            }
+
+            long m = (long)MultiPrecision<N>.Floor(x);
+            MultiPrecision<N> f = x - m;
+            MultiPrecision<N> y = SterlingApprox(n + f);
+
+            if (MultiPrecision<N>.IsNaN(y)) {
+                return MultiPrecision<N>.NaN;
+            }
+
+            MultiPrecision<N> g = MultiPrecision<N>.LogGamma(n - 1 + f);
+
+            for (long k = n - 1; k >= m; k--) {
+                y -= g;
+                g -= MultiPrecision<N>.Log(k - 1 + f);
+            }
+
+            return y;
+        }
+
         public static MultiPrecision<N> SterlingApprox(MultiPrecision<N> x) {
             x -= 1;
 
             MultiPrecision<N> b = SterlingTerm(x, max_term: 1024);
-            if (MultiPrecision<N>.IsNaN(b)) { 
+            if (MultiPrecision<N>.IsNaN(b)) {
                 return MultiPrecision<N>.NaN;
             }
 
@@ -35,7 +62,7 @@ namespace BarnesGApproximation {
         public static MultiPrecision<N> SterlingTerm(MultiPrecision<N> x, int max_term = 1024) {
             MultiPrecision<N> inv_x2 = 1 / (x * x), inv_x4 = inv_x2 * inv_x2;
 
-            MultiPrecision<N> s = 0, w = inv_x2; 
+            MultiPrecision<N> s = 0, w = inv_x2;
 
             for (int k = 1; k <= max_term; k += 2) {
                 MultiPrecision<N> c1 = SterlingTermCoef(k), c2 = SterlingTermCoef(k + 1);
@@ -48,7 +75,7 @@ namespace BarnesGApproximation {
                 if (ds.Exponent < s.Exponent - MultiPrecision<N>.Bits) {
                     return s;
                 }
-                
+
                 w *= inv_x4;
                 s += ds;
             }
@@ -58,7 +85,7 @@ namespace BarnesGApproximation {
 
         public static MultiPrecision<N> SterlingTermCoef(int n) {
             if (n >= sterling_term_coefs.Count) {
-                for (int k = sterling_term_coefs.Count; k <= n; k++) { 
+                for (int k = sterling_term_coefs.Count; k <= n; k++) {
                     MultiPrecision<N> c = MultiPrecision<N>.BernoulliSequence(k + 1) / (4 * k * (k + 1));
                     sterling_term_coefs.Add(c);
                 }
@@ -70,8 +97,8 @@ namespace BarnesGApproximation {
         private static MultiPrecision<N>? glaisher_a = null;
         public static MultiPrecision<N> GlaisherA {
             get {
-                glaisher_a ??= 
-                      "1.282427129100622636875342568869791727767688927325001192063740" + 
+                glaisher_a ??=
+                      "1.282427129100622636875342568869791727767688927325001192063740" +
                         "021740406308858826461129736491958202374394206461203990007489" +
                         "331577913627752804041590725738617275221433432714343978733506" +
                         "791525736685690787656114668644999778496275451817431239465276" +
@@ -110,6 +137,6 @@ namespace BarnesGApproximation {
                 return glaisher_a;
             }
         }
-          
+
     }
 }
