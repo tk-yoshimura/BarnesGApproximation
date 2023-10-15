@@ -29,9 +29,11 @@ namespace BarnesGApproximation {
             Console.WriteLine(u3);
             Console.WriteLine(u4);
 
-            Console.WriteLine(u1);
-            Console.WriteLine(u2);
+            MultiPrecision<Pow2.N64> u5 = BarnesGN64.LogValue(1 + 1d / 65536);
+            MultiPrecision<Pow2.N64> u6 = BarnesGN64.LogValue(2 + 1d / 65536);
 
+            Console.WriteLine(u5);
+            Console.WriteLine(u6);
 
             Console.WriteLine("END");
             Console.ReadLine();
