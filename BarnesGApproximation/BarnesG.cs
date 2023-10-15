@@ -12,8 +12,8 @@ namespace BarnesGApproximation {
         private static MultiPrecision<N> LogBias { get; } =
             MultiPrecision<N>.Div(1, 12) - MultiPrecision<N>.Log(GlaisherA);
 
-        private static MultiPrecision<N> LogPI2 { get; } =
-            MultiPrecision<N>.Log(2 * MultiPrecision<N>.PI);
+        private static MultiPrecision<N> LogPI2Half { get; } =
+            MultiPrecision<N>.Log(2 * MultiPrecision<N>.PI) / 2;
 
         public static MultiPrecision<N> SterlingApprox(MultiPrecision<N> x) {
             x -= 1;
@@ -25,7 +25,7 @@ namespace BarnesGApproximation {
 
             MultiPrecision<N> x2 = x * x;
 
-            MultiPrecision<N> c = LogBias + x * LogPI2 / 2 + (x2 / 2 - Rcp12) * MultiPrecision<N>.Log(x) - 3 * x2 / 4;
+            MultiPrecision<N> c = LogBias + x * LogPI2Half + (x2 / 2 - Rcp12) * MultiPrecision<N>.Log(x) - 3 * x2 / 4;
 
             MultiPrecision<N> y = b + c;
 
@@ -70,8 +70,7 @@ namespace BarnesGApproximation {
         private static MultiPrecision<N>? glaisher_a = null;
         public static MultiPrecision<N> GlaisherA {
             get {
-                if (glaisher_a is null) {
-                    glaisher_a = 
+                glaisher_a ??= 
                       "1.282427129100622636875342568869791727767688927325001192063740" + 
                         "021740406308858826461129736491958202374394206461203990007489" +
                         "331577913627752804041590725738617275221433432714343978733506" +
@@ -107,7 +106,6 @@ namespace BarnesGApproximation {
                         "496631023303097906188395750176089318779507323548959362359103" +
                         "833847624091895330031123168953945418733121648289643965312552" +
                         "0938777622545329416060171577126740091";
-                }
 
                 return glaisher_a;
             }
