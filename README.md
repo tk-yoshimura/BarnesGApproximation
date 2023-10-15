@@ -1,0 +1,2 @@
+# BarnesGApproximation
+ BarnesG approximation note
