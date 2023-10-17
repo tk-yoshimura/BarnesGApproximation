@@ -81,9 +81,9 @@ namespace BarnesGApproximation {
                 return MultiPrecision<N>.NaN;
             }
 
-            MultiPrecision<N> x2 = x * x;
+            MultiPrecision<N> lnx = MultiPrecision<N>.Log(x);
 
-            MultiPrecision<N> c = LogBias + x * LogPI2Half + (x2 / 2 - Rcp12) * MultiPrecision<N>.Log(x) - 3 * x2 / 4;
+            MultiPrecision<N> c = LogBias - lnx * Rcp12 + x * (LogPI2Half + x * (2 * lnx - 3) / 4);
 
             MultiPrecision<N> y = b + c;
 
