@@ -42,8 +42,11 @@ namespace BarnesGApproximation {
         }
 
         public static MultiPrecision<N> LogValue(MultiPrecision<N> x, long n) {
-            if (x < 0) {
+            if (MultiPrecision<N>.IsNegative(x)) {
                 return MultiPrecision<N>.NaN;
+            }
+            if (x == 0) {
+                return MultiPrecision<N>.NegativeInfinity;
             }
             if (x >= n) {
                 return SterlingApprox(x);

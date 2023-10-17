@@ -3,45 +3,36 @@
 namespace BarnesGApproximation {
     internal class Program {
         static void Main() {
-            MultiPrecision<Pow2.N32> r0 = BarnesGN32.Value(1024);
-            MultiPrecision<Pow2.N32> r1 = BarnesGN32.LogValue(1024);
+            using StreamWriter sw = new("../../../../results/barnes_g_n32.csv");
+            sw.WriteLine($"x,barnes_g(x),log(barnes_g(x))");
 
-            Console.WriteLine(r0);
-            Console.WriteLine(r1);
+            for (double x = -4; x < 0; x += 1 / 8192d) {
+                MultiPrecision<Pow2.N32> y = BarnesGN32.Value(x);
 
-            MultiPrecision<Pow2.N32> v0 = BarnesGN32.Value(0);
-            MultiPrecision<Pow2.N32> v1 = BarnesGN32.Value(1);
-            MultiPrecision<Pow2.N32> v2 = BarnesGN32.Value(2);
+                sw.WriteLine($"{x},{y}");
 
-            Console.WriteLine(v0);
-            Console.WriteLine(v1);
-            Console.WriteLine(v2);
+                Console.WriteLine($"{x}\n{y:e40}");
+            }
 
-            MultiPrecision<Pow2.N32> u1 = BarnesGN32.LogValue(1);
-            MultiPrecision<Pow2.N32> u2 = BarnesGN32.LogValue(2);
+            for (double x = 0; x < 4; x += 1 / 8192d) { 
+                MultiPrecision<Pow2.N32> y = BarnesGN32.Value(x);
+                MultiPrecision<Pow2.N32> lny = BarnesGN32.LogValue(x);
 
-            Console.WriteLine(u1);
-            Console.WriteLine(u2);
+                sw.WriteLine($"{x},{y},{lny}");
 
-            MultiPrecision<Pow2.N32> u3 = BarnesGN32.LogValue(1 + 1d / 65536);
-            MultiPrecision<Pow2.N32> u4 = BarnesGN32.LogValue(2 + 1d / 65536);
+                Console.WriteLine($"{x}\n{y:e40}\n{lny:e40}");
+            }
 
-            Console.WriteLine(u3);
-            Console.WriteLine(u4);
+            for (double x = 4; x <= 8; x += 1 / 4096d) { 
+                MultiPrecision<Pow2.N32> y = BarnesGN32.Value(x);
+                MultiPrecision<Pow2.N32> lny = BarnesGN32.LogValue(x);
 
-            MultiPrecision<Pow2.N64> u5 = BarnesGN64.LogValue(1 + 1d / 65536);
-            MultiPrecision<Pow2.N64> u6 = BarnesGN64.LogValue(2 + 1d / 65536);
+                sw.WriteLine($"{x},{y},{lny}");
 
-            Console.WriteLine(u5);
-            Console.WriteLine(u6);
+                Console.WriteLine($"{x}\n{y:e40}\n{lny:e40}");
+            }
 
-            MultiPrecision<Pow2.N32> w0 = BarnesGN32.Value(-0.125);
-            MultiPrecision<Pow2.N32> w1 = BarnesGN32.Value(-0.25);
-            MultiPrecision<Pow2.N32> w2 = BarnesGN32.Value(-2.25);
-
-            Console.WriteLine(w0);
-            Console.WriteLine(w1);
-            Console.WriteLine(w2);
+            sw.Close();
 
             Console.WriteLine("END");
             Console.ReadLine();
