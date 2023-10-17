@@ -2,18 +2,18 @@
 
 namespace BarnesGApproximation {
     internal class Program {
-        static void Main(string[] args) {
-            MultiPrecision<Pow2.N32> t = BarnesG<Pow2.N32>.LogValue(1000.25, n: 128);
+        static void Main() {
+            MultiPrecision<Pow2.N32> r0 = BarnesGN32.Value(1024);
+            MultiPrecision<Pow2.N32> r1 = BarnesGN32.LogValue(1024);
 
-            Console.WriteLine(t);
+            Console.WriteLine(r0);
+            Console.WriteLine(r1);
 
-            MultiPrecision<Pow2.N32> w = BarnesGN32.LogValue(1000.25);
-
-            Console.WriteLine(w);
-
+            MultiPrecision<Pow2.N32> v0 = BarnesGN32.Value(0);
             MultiPrecision<Pow2.N32> v1 = BarnesGN32.Value(1);
             MultiPrecision<Pow2.N32> v2 = BarnesGN32.Value(2);
 
+            Console.WriteLine(v0);
             Console.WriteLine(v1);
             Console.WriteLine(v2);
 
@@ -34,6 +34,14 @@ namespace BarnesGApproximation {
 
             Console.WriteLine(u5);
             Console.WriteLine(u6);
+
+            MultiPrecision<Pow2.N32> w0 = BarnesGN32.Value(-0.125);
+            MultiPrecision<Pow2.N32> w1 = BarnesGN32.Value(-0.25);
+            MultiPrecision<Pow2.N32> w2 = BarnesGN32.Value(-2.25);
+
+            Console.WriteLine(w0);
+            Console.WriteLine(w1);
+            Console.WriteLine(w2);
 
             Console.WriteLine("END");
             Console.ReadLine();

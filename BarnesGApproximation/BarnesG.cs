@@ -16,10 +16,35 @@ namespace BarnesGApproximation {
             MultiPrecision<N>.Log(2 * MultiPrecision<N>.PI) / 2;
 
         public static MultiPrecision<N> Value(MultiPrecision<N> x, long n) {
-            return MultiPrecision<N>.Exp(LogValue(x, n));
+            if (x <= 0 && MultiPrecision<N>.IsInteger(x)) {
+                return 0;
+            }
+            if (x >= n) {
+                return MultiPrecision<N>.Exp(SterlingApprox(x));
+            }
+
+            long m = (long)MultiPrecision<N>.Floor(x);
+            MultiPrecision<N> f = x - m;
+            MultiPrecision<N> y = MultiPrecision<N>.Exp(SterlingApprox(n + f));
+
+            if (MultiPrecision<N>.IsNaN(y)) {
+                return MultiPrecision<N>.NaN;
+            }
+
+            MultiPrecision<N> g = MultiPrecision<N>.Gamma(n - 1 + f);
+
+            for (long k = n - 1; k >= m; k--) {
+                y /= g;
+                g /= k - 1 + f;
+            }
+
+            return y;
         }
 
         public static MultiPrecision<N> LogValue(MultiPrecision<N> x, long n) {
+            if (x < 0) {
+                return MultiPrecision<N>.NaN;
+            }
             if (x >= n) {
                 return SterlingApprox(x);
             }
@@ -32,12 +57,15 @@ namespace BarnesGApproximation {
                 return MultiPrecision<N>.NaN;
             }
 
-            MultiPrecision<N> g = MultiPrecision<N>.LogGamma(n - 1 + f);
+            MultiPrecision<N> d = 1;
+            MultiPrecision<N> g = MultiPrecision<N>.Gamma(n - 1 + f);
 
             for (long k = n - 1; k >= m; k--) {
-                y -= g;
-                g -= MultiPrecision<N>.Log(k - 1 + f);
+                d *= g;
+                g /= k - 1 + f;
             }
+
+            y -= MultiPrecision<N>.Log(d);
 
             return y;
         }

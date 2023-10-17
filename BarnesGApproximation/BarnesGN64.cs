@@ -3,10 +3,15 @@
 namespace BarnesGApproximation {
     public static class BarnesGN64 {
         public static MultiPrecision<Pow2.N64> Value(MultiPrecision<Pow2.N64> x) {
-            MultiPrecision<Plus1<Pow2.N64>> logg = BarnesG<Plus1<Pow2.N64>>.LogValue(x.Convert<Plus1<Pow2.N64>>(), n: 256);
-            MultiPrecision<Plus1<Pow2.N64>> g = MultiPrecision<Plus1<Pow2.N64>>.Exp(logg);
+            MultiPrecision<Plus2<Pow2.N64>> g = BarnesG<Plus2<Pow2.N64>>.Value(x.Convert<Plus2<Pow2.N64>>(), n: 128);
 
-            return g.Convert<Pow2.N64>();
+            MultiPrecision<Plus2<Pow2.N64>> g_rounded = MultiPrecision<Plus2<Pow2.N64>>.Ldexp(
+                MultiPrecision<Plus2<Pow2.N64>>.Truncate(
+                    MultiPrecision<Plus2<Pow2.N64>>.Ldexp(g, MultiPrecision<Pow2.N64>.Bits)
+                ), -MultiPrecision<Pow2.N64>.Bits
+            );
+
+            return g_rounded.Convert<Pow2.N64>();
         }
 
         public static MultiPrecision<Pow2.N64> LogValue(MultiPrecision<Pow2.N64> x) {
