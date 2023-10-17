@@ -5,7 +5,7 @@ namespace BarnesGApproximation {
         public static MultiPrecision<Pow2.N32> Value(MultiPrecision<Pow2.N32> x) {
             MultiPrecision<Plus2<Pow2.N32>> g = BarnesG<Plus2<Pow2.N32>>.Value(x.Convert<Plus2<Pow2.N32>>(), n: 128);
 
-            if (g.Exponent > MultiPrecision<Pow2.N32>.Bits) {
+            if (g.Exponent >= MultiPrecision<Pow2.N32>.Bits) {
                 return g.Convert<Pow2.N32>();
             }
 
