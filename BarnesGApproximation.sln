@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarnesGApproximation", "BarnesGApproximation/BarnesGApproximation.csproj", "{4E8F3EF6-5670-4295-A82E-5FDFEB322247}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarnesGApproximation", "BarnesGApproximation\BarnesGApproximation.csproj", "{4E8F3EF6-5670-4295-A82E-5FDFEB322247}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarnesGPade", "BarnesGPade\BarnesGPade.csproj", "{C1E0FAB9-7120-46D7-A728-28F8D93F6011}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogBarnesGPade", "LogBarnesGPade\LogBarnesGPade.csproj", "{55D2CE21-A858-4B00-B6D0-1D22AABBCE41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{4E8F3EF6-5670-4295-A82E-5FDFEB322247}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E8F3EF6-5670-4295-A82E-5FDFEB322247}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E8F3EF6-5670-4295-A82E-5FDFEB322247}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1E0FAB9-7120-46D7-A728-28F8D93F6011}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1E0FAB9-7120-46D7-A728-28F8D93F6011}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1E0FAB9-7120-46D7-A728-28F8D93F6011}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1E0FAB9-7120-46D7-A728-28F8D93F6011}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55D2CE21-A858-4B00-B6D0-1D22AABBCE41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55D2CE21-A858-4B00-B6D0-1D22AABBCE41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55D2CE21-A858-4B00-B6D0-1D22AABBCE41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55D2CE21-A858-4B00-B6D0-1D22AABBCE41}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
